@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'data/database_helper.dart';
+
 class ShowOldYears extends StatefulWidget {
   const ShowOldYears({Key? key}) : super(key: key);
 
@@ -10,11 +12,14 @@ class ShowOldYears extends StatefulWidget {
 }
 
 class _ShowOldYearsState extends State<ShowOldYears> {
+  var db =  DatabaseHelper();
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: const Color(0xfff4f1f1),
         appBar: AppBar(
           title: const Text('عرض كل كبار السن',style: TextStyle(color: Color(0xff00b6a8),fontWeight: FontWeight.bold),),
           leading: IconButton(
@@ -27,23 +32,28 @@ class _ShowOldYearsState extends State<ShowOldYears> {
         ),
         body: Container(
           width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Color(0xffd6d6d6), Color(0xfff4f1f1)]
-            ),
-          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
-                doctor('محمد ابوحية', '٢٢ سنة'),
+                FutureBuilder<List>(
+                    future: db.getAllRecords("Old"),
+                    initialData: const  [],
+                    builder: (context, snapshot) {
+                      return snapshot.hasData
+                          ? ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        padding: EdgeInsetsDirectional.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return oldYear(snapshot.data![index].row[1], snapshot.data![index].row[3]);
+                        },
+                      ) : const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                ),
               ],
             ),
           ),
@@ -51,7 +61,7 @@ class _ShowOldYearsState extends State<ShowOldYears> {
       ),
     );
   }
-  Widget doctor(String name,String job){
+  Widget oldYear(String name,String job){
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(

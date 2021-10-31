@@ -1,9 +1,10 @@
+import 'package:care/models/old_year.dart';
 import 'package:care/show_doctor.dart';
-import 'package:care/show_old_years.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'admin_screen.dart';
+import 'data/database_helper.dart';
 
 class AddOldScreen extends StatefulWidget {
   const AddOldScreen({Key? key}) : super(key: key);
@@ -13,6 +14,15 @@ class AddOldScreen extends StatefulWidget {
 }
 
 class _AddOldScreenState extends State<AddOldScreen> {
+  BuildContext? _ctx;
+  bool _isLoading = false;
+  final TextEditingController _firstNameOldYear = TextEditingController();
+  final TextEditingController _usernameOldYear = TextEditingController();
+  final TextEditingController _passwordOldYear = TextEditingController();
+  final TextEditingController _phoneOldYear = TextEditingController();
+  final TextEditingController _emailOldYear = TextEditingController();
+  final TextEditingController _secondNameOldYear = TextEditingController();
+  final formKey =  GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -52,7 +62,7 @@ class _AddOldScreenState extends State<AddOldScreen> {
                       color: Color(0xff00b6a8),fontSize: 18,fontWeight: FontWeight.bold),),
                 const SizedBox(height: 20,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _firstNameOldYear,
                   keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
@@ -84,8 +94,8 @@ class _AddOldScreenState extends State<AddOldScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
-                  keyboardType: TextInputType.phone,
+                  controller: _secondNameOldYear,
+                  keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
                       return 'الاسم يجب تعبئته';
@@ -116,7 +126,7 @@ class _AddOldScreenState extends State<AddOldScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _phoneOldYear,
                   keyboardType: TextInputType.phone,
                   validator: (value){
                     if(value!.isEmpty){
@@ -148,7 +158,7 @@ class _AddOldScreenState extends State<AddOldScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _emailOldYear,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value){
                     if(value!.isEmpty){
@@ -180,7 +190,7 @@ class _AddOldScreenState extends State<AddOldScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _usernameOldYear,
                   keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
@@ -212,7 +222,7 @@ class _AddOldScreenState extends State<AddOldScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().passwordController,
+                  controller: _passwordOldYear,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
                     if(value!.isEmpty){
@@ -254,11 +264,15 @@ class _AddOldScreenState extends State<AddOldScreen> {
                     width:double.infinity,
                     child: MaterialButton(
                       onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ShowOldYears()),
-                        );
+                        setState(() {
+                          _isLoading = true;
+                          print(_firstNameOldYear.text);
+                          var old =  Old(_firstNameOldYear.text, _usernameOldYear.text, _passwordOldYear.text, _emailOldYear.text,_phoneOldYear.text , _secondNameOldYear.text);
+                          var db =  DatabaseHelper();
+                          db.saveOld(old);
+                          _isLoading = false;
+                          Navigator.of(context).pushNamed("/showOldYear");
+                        });
                       },
                       child: Column(
                         children:const [

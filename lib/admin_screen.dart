@@ -1,5 +1,4 @@
 import 'package:care/change_password_screen.dart';
-import 'package:care/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -52,13 +51,13 @@ class _AdminScreenState extends State<AdminScreen> {
                             children:  [
                               const SizedBox(height: 25,),
                               Row(
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: const [
-                                   Icon(Icons.person_outline,color: Colors.black87,size: 24,),
-                                    SizedBox(width: 5,),
-                                    Text('مرحبآ مدير التطبيق',style: TextStyle(letterSpacing: 5,fontSize: 24,color: Colors.white),),
-                                 ],
-                               ),
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(Icons.person_outline,color: Colors.black87,size: 24,),
+                                  SizedBox(width: 5,),
+                                  Text('مرحبآ مدير التطبيق',style: TextStyle(letterSpacing: 5,fontSize: 24,color: Colors.white),),
+                                ],
+                              ),
                             ],
                           )
                       ),
@@ -66,33 +65,33 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
                 const SizedBox(height: 20,),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChangePasswordScreen()),
-                      );
-                    },
-                    child: GridView.count(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.3/1.0,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(
-                            page.length,
-                                (index) =>  Container(
-                              child: Column(
-                                children: [
-                                  page[index]
-                                ],
-                              ),
-                            )
-                        )
-                    ),
-                )
-                // defaultFormTextField()
+                    padding: const EdgeInsets.all(12.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChangePasswordScreen()),
+                        );
+                      },
+                      child: GridView.count(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.3/1.0,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: List.generate(
+                              page.length,
+                                  (index) =>  Container(
+                                child: Column(
+                                  children: [
+                                    page[index]
+                                  ],
+                                ),
+                              )
+                          )
+                      ),
+                    )
+                  // defaultFormTextField()
                 )],
             ),
           )

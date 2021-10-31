@@ -1,9 +1,11 @@
 import 'package:care/add_old_screen.dart';
+import 'package:care/models/doctor.dart';
 import 'package:care/show_doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'admin_screen.dart';
+import 'data/database_helper.dart';
 
 class AddDoctorScreen extends StatefulWidget {
   const AddDoctorScreen({Key? key}) : super(key: key);
@@ -13,6 +15,15 @@ class AddDoctorScreen extends StatefulWidget {
 }
 
 class _AddDoctorScreenState extends State<AddDoctorScreen> {
+  BuildContext? _ctx;
+  bool _isLoading = false;
+  final TextEditingController _nameDoctor = TextEditingController();
+  final TextEditingController _usernameDoctor = TextEditingController();
+  final TextEditingController _passwordDoctor = TextEditingController();
+  final TextEditingController _phoneDoctor = TextEditingController();
+  final TextEditingController _emailDoctor = TextEditingController();
+  final TextEditingController _majorDoctor = TextEditingController();
+  final formKey =  GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -52,7 +63,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                       color: Color(0xff00b6a8),fontSize: 18,fontWeight: FontWeight.bold),),
                 const SizedBox(height: 20,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _nameDoctor,
                   keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
@@ -84,7 +95,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _phoneDoctor,
                   keyboardType: TextInputType.phone,
                   validator: (value){
                     if(value!.isEmpty){
@@ -116,7 +127,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _majorDoctor,
                   keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
@@ -148,7 +159,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _emailDoctor,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value){
                     if(value!.isEmpty){
@@ -180,7 +191,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().emailController,
+                  controller: _usernameDoctor,
                   keyboardType: TextInputType.name,
                   validator: (value){
                     if(value!.isEmpty){
@@ -212,7 +223,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().passwordController,
+                   controller: _passwordDoctor,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
                     if(value!.isEmpty){
@@ -254,12 +265,16 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                     width:double.infinity,
                     child: MaterialButton(
                       onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ShowDoctor()),
-                        );
-                        },
+                          setState(() {
+                            _isLoading = true;
+                            print(_nameDoctor.text);
+                            var doctor =  Doctor(_nameDoctor.text, _usernameDoctor.text, _passwordDoctor.text, _emailDoctor.text,_phoneDoctor.text , _majorDoctor.text);
+                            var db =  DatabaseHelper();
+                            db.saveDoctor(doctor);
+                            _isLoading = false;
+                            Navigator.of(context).pushNamed("/showDoctor");
+                          });
+                      },
                       child: Column(
                         children:const [
                           Text('حفظ',style: TextStyle(color: Colors.white),),
@@ -274,4 +289,19 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
       ),
     );
   }
+  // void _submit(){
+  //   final form = formKey.currentState;
+  //
+  //   if (formKey.currentState!.validate()) {
+  //     setState(() {
+  //       _isLoading = true;
+  //       formKey.currentState!.save();
+  //       var doctor =  Doctor(_name, _username, _password, _email,_phone , _major);
+  //       var db =  DatabaseHelper();
+  //       db.saveDoctor(doctor);
+  //       _isLoading = false;
+  //       // Navigator.of(context).pushNamed("/showDoctor");
+  //     });
+  //   }
+  // }
 }

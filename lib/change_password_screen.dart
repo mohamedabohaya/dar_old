@@ -40,33 +40,33 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               Row(
-                 crossAxisAlignment: CrossAxisAlignment.center,
-                 children:  [
-                   const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'assets/teacher.jpeg',
-                      ),
-                      radius: 60.0),
-                   const SizedBox(width: 10,),
-                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: const [
-                       Text('مدير التطبيق',style: TextStyle(color: Color(0xff00b6a8),fontSize: 18),),
-                       SizedBox(height: 10,),
-                       Text('محمد ابوحية',style: TextStyle(color: Color(0xffb2b2b2)),),
-                     ],
-                   )
-                 ],
-               ),
-               const SizedBox(height: 40,),
-               const Center(
-                   child:  Text('تغير كلمة السر',
-                     style: TextStyle(
-                         color: Color(0xff00b6a8),
-                         fontSize: 22,
-                         fontWeight: FontWeight.bold),
-                   )),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:  [
+                    const CircleAvatar(
+                        backgroundImage: AssetImage(
+                          'assets/teacher.jpeg',
+                        ),
+                        radius: 60.0),
+                    const SizedBox(width: 10,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('مدير التطبيق',style: TextStyle(color: Color(0xff00b6a8),fontSize: 18),),
+                        SizedBox(height: 10,),
+                        Text('محمد ابوحية',style: TextStyle(color: Color(0xffb2b2b2)),),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(height: 40,),
+                const Center(
+                    child:  Text('تغير كلمة السر',
+                      style: TextStyle(
+                          color: Color(0xff00b6a8),
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold),
+                    )),
                 const SizedBox(height: 30,),
                 TextFormField(
                   // controller: getIt<LoginProvider>().passwordController,
