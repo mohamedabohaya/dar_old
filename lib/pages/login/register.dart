@@ -16,8 +16,6 @@ class _RegisterPageState  extends State<RegisterPage> {
   final scaffoldKey =  GlobalKey<ScaffoldState>();
   String? _name, _username, _password,_phone;
 
-
-
   @override
   Widget build(BuildContext context) {
     _ctx = context;

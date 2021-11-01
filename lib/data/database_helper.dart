@@ -92,6 +92,17 @@ class DatabaseHelper {
     return res;
   }
 
+   Future<int> updateItem(int id, String? password) async {
+    var dbClient = await db;
+
+    final data = {
+      'password': password,
+    };
+
+    final result = await dbClient.update('User', data, where: "id = ?", whereArgs: [id]);
+    return result;
+  }
+
   //deletion
   Future<int> deleteUser(User user) async {
     var dbClient = await db;

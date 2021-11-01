@@ -1,6 +1,6 @@
-import 'package:care/Database/transaction.dart' as prefix ;
 import 'package:care/add_doctor_screen.dart';
 import 'package:care/add_old_screen.dart';
+import 'package:care/change_password_screen.dart';
 import 'package:care/pages/login/login_page.dart';
 import 'package:care/pages/login/register.dart';
 import 'package:care/show_doctor.dart';
@@ -9,13 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'Database/transaction.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(TransactionAdapter());
-  await Hive.openBox<prefix.User>('users');
   runApp(const MyApp());
 }
 
@@ -26,6 +22,7 @@ final routes = {
   '/addOldYear': (BuildContext context) =>  const AddOldScreen(),
   '/showOldYear': (BuildContext context) =>  const ShowOldYears(),
   '/register': (BuildContext context) =>  RegisterPage(),
+  '/changePassword': (BuildContext context) =>  const ChangePasswordScreen(),
   '/': (BuildContext context) =>  LoginPage(),
 };
 

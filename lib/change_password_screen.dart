@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'admin_screen.dart';
+import 'data/database_helper.dart';
+import 'models/user.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -69,7 +72,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     )),
                 const SizedBox(height: 30,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().passwordController,
+                  controller: password,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
                     if(value!.isEmpty){
@@ -101,7 +104,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 const SizedBox(height: 10,),
                 TextFormField(
-                  // controller: getIt<LoginProvider>().passwordController,
+                  controller: password,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
                     if(value!.isEmpty){
@@ -141,11 +144,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     width:double.infinity,
                     child: MaterialButton(
                       onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddDoctorScreen()),
-                        );
+                        var db =  DatabaseHelper();
+                        db.updateItem(1,password.text);
+                        Navigator.of(context).pushNamed("/login");
                       },
                       child: Column(
                         children:const [
