@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'admin_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,7 @@ final routes = {
   '/showDoctor': (BuildContext context) =>  const ShowDoctor(),
   '/addDoctor': (BuildContext context) =>  const AddDoctorScreen(),
   '/addOldYear': (BuildContext context) =>  const AddOldScreen(),
+  '/admin': (BuildContext context) =>  const AdminScreen(),
   '/showOldYear': (BuildContext context) =>  const ShowOldYears(),
   '/register': (BuildContext context) =>  RegisterPage(),
   '/changePassword': (BuildContext context) =>  const ChangePasswordScreen(),

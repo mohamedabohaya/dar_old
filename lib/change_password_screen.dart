@@ -145,7 +145,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: MaterialButton(
                       onPressed: (){
                         var db =  DatabaseHelper();
-                        db.updateItem(1,password.text);
+                        db.updateItem(4,password.text);
                         Navigator.of(context).pushNamed("/login");
                       },
                       child: Column(

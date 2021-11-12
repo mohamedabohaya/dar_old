@@ -18,12 +18,12 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
 
     List<Widget> page = <Widget>[
-      choice(name: 'اضافة',icon: Icons.person_add),
-      choice(name: 'عرض',icon: Icons.supervisor_account_rounded),
-      choice(name: 'تحديث',icon: Icons.refresh_sharp),
-      choice(name: 'حذف',icon: Icons.cancel_outlined),
-      choice(name: 'تغير كلمة السر',icon: Icons.update_rounded),
-      choice(name: 'تسجيل خروج',icon: Icons.login_outlined),
+      choice(name: 'اضافة',icon: Icons.person_add,tap: (){Navigator.of(context).pushNamed("/addDoctor");}),
+      choice(name: 'عرض',icon: Icons.supervisor_account_rounded,tap: (){Navigator.of(context).pushNamed("/showDoctor");}),
+      choice(name: 'تحديث',icon: Icons.refresh_sharp,tap: (){}),
+      choice(name: 'حذف',icon: Icons.cancel_outlined,tap: (){}),
+      choice(name: 'تغير كلمة السر',icon: Icons.update_rounded,tap: (){Navigator.of(context).pushNamed("/changePassword");}),
+      choice(name: 'تسجيل خروج',icon: Icons.login_outlined,tap: (){}),
     ];
 
     return Directionality(
@@ -98,28 +98,33 @@ class _AdminScreenState extends State<AdminScreen> {
       ),
     );
   }
-  Widget choice({String? name,IconData? icon}){
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color(0xff00b6a8),
+  Widget choice({String? name,IconData? icon,Function? tap}){
+    return GestureDetector(
+      onTap: (){
+        tap!.call();
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xff00b6a8),
+              ),
+              width: 150,
+              height: 120,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  [
+                  Icon(icon,size: 34,),
+                  const SizedBox(height: 4,),
+                  Text('${name}',style: const TextStyle(fontSize: 25),)
+                ],
+              ),
             ),
-            width: 150,
-            height: 120,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
-                Icon(icon,size: 34,),
-                const SizedBox(height: 4,),
-                Text('${name}',style: const TextStyle(fontSize: 25),)
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

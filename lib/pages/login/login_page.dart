@@ -235,7 +235,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
     });
     if(user.flaglogged == "logged"){
       print("Logged");
-      Navigator.of(context).pushNamed("/changePassword");
+      Navigator.of(context).pushNamed("/admin");
     }else{
       print("Not Logged");
     }
