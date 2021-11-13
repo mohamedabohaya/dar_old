@@ -57,7 +57,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       children: const [
                         Text('مدير التطبيق',style: TextStyle(color: Color(0xff00b6a8),fontSize: 18),),
                         SizedBox(height: 10,),
-                        Text('محمد ابوحية',style: TextStyle(color: Color(0xffb2b2b2)),),
+                        Text('سلمي',style: TextStyle(color: Color(0xffb2b2b2)),),
                       ],
                     )
                   ],
